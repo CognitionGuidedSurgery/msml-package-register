@@ -1,0 +1,89 @@
+body {
+    font-family: monospace;
+    font-size: 10pt;
+    background: #ccc;
+    padding: 0;
+    margin: 0;
+}
+
+html, button, input, select, textarea,
+.pure-g [class *= "pure-u"] {
+    /* Set your content font stack here: */
+    font-family: monospace;
+}
+
+.g1, .g3 {
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+div.first, div.second, div.third, div.fourth {
+
+}
+
+div.first, div.third {
+    background: white;
+}
+
+div.second, div.fourth {
+    background: #cccccc;
+}
+
+div.third {
+    height: 100vh;
+    padding: 0em 1em 0em 1em;
+}
+
+div.fourth {
+    margin-top: 8em;
+}
+
+
+.key {
+    text-transform: uppercase;
+    font-weight: bolder;
+}
+
+
+div.line {
+    text-transform: uppercase;
+    background: black;
+    text-align:center;
+    color:white;
+}
+
+/*
+div.info {
+    margin-top:2em;
+    float:right;
+    width:20%;
+    margin-right: 82%;
+}
+
+*/
+
+h1, h2, h3 {
+    text-transform: uppercase;
+}
+
+
+
+h1 {
+    text-align: center;
+}
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+th {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+a {
+    text-decoration: underline;
+    color: black;
+}

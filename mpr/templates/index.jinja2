@@ -1,0 +1,31 @@
+{% extends "base.jinja2" %}
+
+{% block bodyclass %}register{% endblock %}
+
+{% block first %}
+    <h1>MSML PACKAGE REGISTER</h1>
+{% endblock %}
+
+{% block third %}
+    <table class="pure-table pure-table-horizontal pure-table-striped">
+        <thead>
+            <tr>
+                <th>NAME</th>
+                <th>VERSION</th>
+                <th>maintainer</th>
+                <th>external</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for package in packages %}
+            <tr>
+                <td><a href="{{ package.folder }}">{{ package.meta.name }}</a></td>
+                <td>{{ package.meta.version}}</td>
+                <td>{{ package.maintainer_without_email }}</td>
+                <td><a href="{{ package.website }}"><img width="16px" src="{{ package.provider_logo }}"/></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

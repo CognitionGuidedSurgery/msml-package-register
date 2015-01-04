@@ -1,0 +1,40 @@
+{% extends "base.jinja2" %}
+
+{% block first %}
+    <div class="line">
+        {{ package.meta.name }}@{{ package.meta.version }}
+    </div>
+{% endblock %}
+
+{% block second %}
+    <span class="key">Generated:</span> {{ date.strftime('%Y-%m-%d') }}
+{% endblock %}
+
+{% block fourth %}
+    <div class="info">
+        <p><span class="key">Maintainer:</span> {{ package.maintainer_as_link }}</p>
+
+        <p><span class="key">Name:</span> {{ package.meta.name }}</p>
+
+        <p><span class="key">Version:</span> {{ package.meta.version }}</p>
+
+        <p><span class="key">Repository:</span>
+            <a href="{{ package.repository_url }}">
+                <img width="16px" src="{{ package.provider_logo }}"/></a>
+        </p>
+    </div>
+{% endblock %}
+
+{% block third %}
+    {{ package.html }}
+
+    <hr>
+
+    <p>
+        <span class="key">add to repository</span><br>
+
+    <pre>$ murmgr download_package {{ package.repository_url }}
+            </pre>
+
+    </p>
+{% endblock %}
