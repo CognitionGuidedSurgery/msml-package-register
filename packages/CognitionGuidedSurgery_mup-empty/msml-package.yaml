@@ -1,0 +1,10 @@
+name: mup-empty
+maintainer: "Name <email>"
+version: "2015.01.03"
+git: "https://github.com/CognitionGuidedSurgery/mup-empty.git"
+alphabet-directories:
+  - alphabet/
+binary-search-path:
+  - bin/
+python-path:
+  - py/
