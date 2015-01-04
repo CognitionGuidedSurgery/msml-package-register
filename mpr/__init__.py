@@ -2,12 +2,13 @@ __author__ = 'weigl'
 
 import json
 import jinja2
-import re, yaml
+import re
 
+import yaml
 from path import Path
 import click
-
 import markdown
+
 
 jinja_env = jinja2.Environment(loader=jinja2.PackageLoader(__name__))
 
@@ -81,11 +82,9 @@ class Package(object):
             name = m[:pos1]
 
         if pos1 > 0 and pos2 > 0:
-            email = m[pos1+1:pos2]
+            email = m[pos1 + 1:pos2]
 
         return '<a href="mailto:%s">%s</a>' % (email, name)
-
-
 
 
 class GitHubPackage(Package):
@@ -109,7 +108,7 @@ class GitHubPackage(Package):
         self.name = name
 
         # click.echo("Package: %s" % name)
-        #click.echo("\twith repo   : %s" % repository_url)
+        # click.echo("\twith repo   : %s" % repository_url)
         #click.echo("\twith package: %s" % package_url)
         #click.echo("\twith readme : %s" % readme_url)
 
@@ -159,6 +158,19 @@ def download_file(url, filename):
         error("%s returned %d" % (url, response.status_code))
 
 
+def get_defaults():
+    import mpr.config
+
+    return {name: getattr(mpr.config, name) for name in dir(mpr.config)}
+
+
+def render_template(tofile, template, **kwargs):
+    with open(tofile, 'w') as fp:
+        k = get_defaults()
+        k.update(kwargs)
+        fp.write(template.render(**k))
+
+
 def download_meta_data():
     for package in get_all_packages():
         folder = package.folder
@@ -166,20 +178,18 @@ def download_meta_data():
         download_file(package.package_url, package.package_file)
         download_file(package.readme_url, package.readme_file)
 
+
 def render_page():
     packages = sorted(list(get_all_packages()),
-                      cmp = lambda x,y: cmp(x.meta['name'], y.meta['name']))
-
-
+                      cmp=lambda x, y: cmp(x.meta['name'], y.meta['name']))
 
     template = jinja_env.get_template("index.jinja2")
-    with open("index.html",'w') as fp:
-        fp.write(template.render(packages = packages, date = datetime.datetime.today()))
+    render_template("index.html", template, packages=packages)
 
     package_template = jinja_env.get_template("package.jinja2")
     for package in packages:
-        with open(package.folder / "index.html" , 'w') as fp:
-            fp.write(package_template.render(package = package,
-                                             date = datetime.datetime.today()))
+        render_template(package.folder / "index.html",
+                        package_template,
+                        package=package)
 
-import datetime
+
