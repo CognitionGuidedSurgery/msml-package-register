@@ -9,6 +9,7 @@ from path import Path
 import click
 import markdown
 
+import mpr.config
 
 jinja_env = jinja2.Environment(loader=jinja2.PackageLoader(__name__))
 
@@ -91,7 +92,7 @@ class GitHubPackage(Package):
     def __init__(self, tok):
         super(GitHubPackage, self).__init__()
 
-        self.provider_logo = "/assets/GitHub-Mark-32px.png"
+        self.provider_logo = mpr.config.BASE_PATH + "/assets/GitHub-Mark-32px.png"
 
         values = re.compile(r'gh:([^/]+)/([^/]+)').findall(tok)
         user, name = values[0]
