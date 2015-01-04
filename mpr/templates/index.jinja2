@@ -19,7 +19,7 @@
         <tbody>
         {% for package in packages %}
             <tr>
-                <td><a href="{{ package.folder }}">{{ package.meta.name }}</a></td>
+                <td><a href="{{ BASE_PATH }}/{{ package.folder }}">{{ package.meta.name }}</a></td>
                 <td>{{ package.meta.version}}</td>
                 <td>{{ package.maintainer_without_email }}</td>
                 <td><a href="{{ package.website }}"><img width="16px" src="{{ package.provider_logo }}"/></a></td>
