@@ -162,7 +162,7 @@ def download_file(url, filename):
 def get_defaults():
     import mpr.config
 
-    return {name: getattr(mpr.config, name) for name in dir(mpr.config)}
+    return mpr.config.__dict__
 
 
 def render_template(tofile, template, **kwargs):

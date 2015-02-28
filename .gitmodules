@@ -1,0 +1,9 @@
+[submodule "packages/mup-empty"]
+	path = packages/mup-empty
+	url = https://github.com/CognitionGuidedSurgery/mup-empty.git
+[submodule "packages/mup-cli"]
+	path = packages/mup-cli
+	url = https://github.com/CognitionGuidedSurgery/mup-cli.git
+[submodule "packages/mup-niftyreg"]
+	path = packages/mup-niftyreg
+	url = https://github.com/CognitionGuidedSurgery/mup-niftyreg.git
