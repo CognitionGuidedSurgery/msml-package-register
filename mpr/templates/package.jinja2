@@ -2,7 +2,7 @@
 
 {% block first %}
     <div class="line">
-        {{ package.meta.name }}@{{ package.meta.version }}
+        {{ package.name }}@{{ package.version }}
     </div>
 {% endblock %}
 
@@ -12,22 +12,24 @@
 
 {% block fourth %}
     <div class="info">
-        <p><span class="key">Maintainer:</span> {{ package.maintainer_as_link }}</p>
+        <p><span class="key">Maintainer:</span>
+            <a href="mailto:{{ package.information.maintainer.name}}">
+            {{ package.information.maintainer.email}}</a></p>
 
-        <p><span class="key">Name:</span> {{ package.meta.name }}</p>
+        <p><span class="key">Name:</span> {{ package.name }}</p>
 
-        <p><span class="key">Version:</span> {{ package.meta.version }}</p>
+        <p><span class="key">Version:</span> {{ packageversion }}</p>
 
         <p><span class="key">Repository:</span>
             <a href="{{ package.repository_url }}">
-                <img width="16px" src="{{ package.provider_logo }}"/></a>
+                {{ package.repository_url }}
+                <!--<img width="16px" src="{{ package.provider_logo }}"/>--></a>
         </p>
     </div>
 {% endblock %}
 
 {% block third %}
-    {{ package.html }}
-
+    {{ package|html }}
     <hr>
 
     <p>

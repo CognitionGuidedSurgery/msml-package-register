@@ -1,0 +1,8 @@
+<repository xmlns="http://msml.org/repository/1.0/">
+
+    <package>packages/mup-cli</package>
+    <package>packages/mup-empty</package>
+    <package>packages/mup-niftyreg</package>
+    <package>../msml/share/</package>
+
+</repository>

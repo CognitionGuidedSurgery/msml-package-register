@@ -1,91 +1,38 @@
+import markdown
+
 __author__ = 'weigl'
 
 import json
-import jinja2
 import re
 
-import yaml
+import jinja2
 from path import Path
 import click
-import markdown
+import requests
+from path import path
 
+from msml.package import Repository, Package
 import mpr.config
 
 jinja_env = jinja2.Environment(loader=jinja2.PackageLoader(__name__))
 
 
-class Package(object):
-    def __init__(self):
-        self.unique_name = None
-        self.package_url = None
-        self.readme_url = None
-        self.repository_url = None
-        self.website = None
-        self.provider = None
-
-        self.provider_logo = None
-
-        self._meta = None
-        self._content = None
+def html(package):
+    if package.information.documentation.file:
+        md = path(package.base_path) / package.information.documentation.file
+        return markdown.markdown(md)
+    elif package.information.documentation.content:
+        return markdown.markdown(package.information.documentation.content)
+    return ""
 
 
-    @property
-    def readme_file(self):
-        return self.folder / "README.md"
-
-    @property
-    def package_file(self):
-        return self.folder / "msml-package.yaml"
-
-    @property
-    def folder(self):
-        return PACKAGES_DIR / self.unique_name
-
-    def __str__(self):
-        return "Package: %s " % self.unique_name
-
-    @property
-    def meta(self):
-        if not self._meta:
-            with open(self.package_file) as fp:
-                self._meta = yaml.load(fp)
-        return self._meta
-
-    @property
-    def readme(self):
-        if not self._content:
-            with open(self.readme_file) as fp:
-                self._content = fp.read()
-        return self._content
-
-    @property
-    def html(self):
-        return markdown.markdown(self.readme)
-
-    @property
-    def maintainer_without_email(self):
-        m = str(self.meta.get('maintainer', "unknown"))
-        pos = m.find("<")
-        if pos > 0:
-            m = m[:pos]
-        return m
+def url(package):
+    return "%s/p/%s.html" % (mpr.config.BASE_PATH, package.name)
 
 
-    @property
-    def maintainer_as_link(self):
-        m = self.meta.get('maintainer', "unknown")
-        pos1 = m.find("<")
-        pos2 = m.rfind(">")
 
-        name = m
-        email = ""
-        if pos1 > 0:
-            name = m[:pos1]
-
-        if pos1 > 0 and pos2 > 0:
-            email = m[pos1 + 1:pos2]
-
-        return '<a href="mailto:%s">%s</a>' % (email, name)
+jinja_env.filters['html'] = html
+jinja_env.filters['url'] = url
 
 
 class GitHubPackage(Package):
@@ -110,8 +57,8 @@ class GitHubPackage(Package):
 
         # click.echo("Package: %s" % name)
         # click.echo("\twith repo   : %s" % repository_url)
-        #click.echo("\twith package: %s" % package_url)
-        #click.echo("\twith readme : %s" % readme_url)
+        # click.echo("\twith package: %s" % package_url)
+        # click.echo("\twith readme : %s" % readme_url)
 
 
 def error(message):
@@ -128,23 +75,6 @@ def do(message):
 
 def read_directory():
     return json.load(Path("./packages/directory.json").open())
-
-
-def get_all_packages():
-    handlers = {
-        "gh:": GitHubPackage
-    }
-
-    for tok in read_directory():
-        for h in handlers:
-            if tok.startswith(h):
-                yield handlers[h](tok)
-                break
-
-
-import requests
-
-PACKAGES_DIR = Path("packages")
 
 
 def download_file(url, filename):
@@ -181,15 +111,21 @@ def download_meta_data():
 
 
 def render_page():
-    packages = sorted(list(get_all_packages()),
-                      cmp=lambda x, y: cmp(x.meta['name'], y.meta['name']))
+    repo = Repository.from_file(".")
+    packages = repo.resolve_packages()
+    packages = sorted(packages,
+                      cmp=lambda x, y: cmp(x.name, y.name))
+
+    for p in packages:
+        print "Found %s in %s" % (p, p.base_path)
 
     template = jinja_env.get_template("index.jinja2")
     render_template("index.html", template, packages=packages)
 
     package_template = jinja_env.get_template("package.jinja2")
+    path("p").mkdir()
     for package in packages:
-        render_template(package.folder / "index.html",
+        render_template("p/%s.html" % package.name,
                         package_template,
                         package=package)
 

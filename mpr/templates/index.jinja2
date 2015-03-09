@@ -19,10 +19,10 @@
         <tbody>
         {% for package in packages %}
             <tr>
-                <td><a href="{{ BASE_PATH }}/{{ package.folder }}">{{ package.meta.name }}</a></td>
-                <td>{{ package.meta.version}}</td>
-                <td>{{ package.maintainer_without_email }}</td>
-                <td><a href="{{ package.website }}"><img width="16px" src="{{ package.provider_logo }}"/></a></td>
+                <td><a href="{{ package|url }}">{{ package.name }}</a></td>
+                <td>{{ package.version}}</td>
+                <td>{{ package.information.maintainer.name }}</td>
+                <td><a href="{{ package.homepage }}"><!--img width="16px" src="{{ package.provider_logo }}"/>-->link</a></td>
             </tr>
         {% endfor %}
         </tbody>
