@@ -22,7 +22,7 @@
                     <div class="first">
                         
     <div class="line">
-        mup-cli@2015.01.03
+        mup-cli@2015.03.01
     </div>
 
                     </div>
@@ -37,15 +37,44 @@
                 <div class="pure-u-3-4 g3">
                     <div class="third">
                         
-    <h1>mup-niftyreg</h1>
-<p>MSML Package covering the Nifty Registration Tools</p>
+    <h1>MSML User Repository for CLI (executables)</h1>
 <p>This repository is a kick-start template for getting CLI (CommandLineInterface) executables into the 
 <a href="http://github.com/CognitionGuidedSurgery/msml">Medical Simulation Markup Language</a>.</p>
 <pre><code> Author: Alexander Weigl &lt;uiduw@student.kit.edu&gt;
- Date: 2014-12-06
- Version: 0.2
+ Date: 2015-03-01
+ Version: 0.3
  License: GPLv3
 </code></pre>
+<h2>Getting Started</h2>
+<ol>
+<li>
+<p>Clone the latest version of this repository:</p>
+<pre><code>$ git clone --depth 0 https://github.com/CognitionGuidedSurgery/mup-empty.git
+</code></pre>
+</li>
+<li>
+<p>Install dependencies:</p>
+<pre><code>$ pip install --user --pre msml2cli
+</code></pre>
+</li>
+<li>
+<p>Exclude <code>alphabet/</code>, <code>bin</code>, <code>py</code> from <code>.gitignore</code> file if necessary.</p>
+</li>
+<li>
+<p>Add executable into <code>bin</code> by linking or copying.</p>
+</li>
+<li>
+<p>Generate wrapper</p>
+<p>$ msml2cli -o alphabet bin/* </p>
+</li>
+</ol>
+<p>Optional for sharing your MSML USER PACKAGE (MUP):</p>
+<ol>
+<li>Set a new origin with your <code>&lt;user&gt;</code> and <code>&lt;repo&gt;</code>:<pre><code>$ git remote set-url origin https://github.com/&lt;user&gt;/&lt;repo&gt;.git
+$ git commit &amp;&amp; git push origin master
+</code></pre>
+</li>
+</ol>
     <hr>
 
     <p>
