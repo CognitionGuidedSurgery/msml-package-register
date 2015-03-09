@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../msml/.idea/msml.iml" filepath="$PROJECT_DIR$/../msml/.idea/msml.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/msml-package-register.iml" filepath="$PROJECT_DIR$/.idea/msml-package-register.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../msml-package-register-creator/.idea/msml-package-register-creator.iml" filepath="$PROJECT_DIR$/../msml-package-register-creator/.idea/msml-package-register-creator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../murmgr/.idea/murmgr.iml" filepath="$PROJECT_DIR$/../murmgr/.idea/murmgr.iml" />
+    </modules>
+  </component>
+</project>
